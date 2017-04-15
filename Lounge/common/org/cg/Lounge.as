@@ -89,11 +89,12 @@ package org.cg {
 	NewWindowWidget;
 	ConnectedPeersWidget;
 	PlayerProfileWidget;
+	EtherTransferWidget;
 		
 	dynamic public class Lounge extends MovieClip implements ILounge {		
 		
 		public static const version:String = "2.0a"; //Lounge version
-		public static const resetConfig:Boolean = false; //Load default global settings data at startup?
+		public static const resetConfig:Boolean = true; //Load default global settings data at startup?
 		public static var xmlConfigFilePath:String = "./xml/settings.xml"; //Default settings file
 		private var _starling:Starling; //main instance used to render Starling/Feathers elements
 		private var _displayContainer:StarlingContainer; //main display container for Starling/Feathers content, set when _starling has initialized

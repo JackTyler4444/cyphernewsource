@@ -42,7 +42,6 @@ package {
 		public function Ethereum(clientRef:EthereumWeb3Client) {
 			_ethereumClient = clientRef;
 		}
-		
 		/**
 		 * A reference to the exposed Ethereum Web3 object.
 		 */
