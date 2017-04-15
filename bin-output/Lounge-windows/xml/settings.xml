@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <settings version="2.0a">	
 	<netcliques>
 		<definition id="RTMFP_INET" type="direct" class="p2p3.netcliques.RTMFP">
@@ -1186,6 +1187,49 @@
 					<label>Save unencrypted password locally</label>
 				</check>
 			</widget>
+			<widget class="org.cg.widgets.EtherTransferWidget" vpadding="20">
+				<button instance="sendEtherButton">                
+					<x>570</x>
+					<y>200</y>
+					<label>Send</label>    
+				</button>
+				<textinput instance="etherTransferAmount">
+					<format>
+						<color>0xFFFFFF</color>
+						<font>_sans</font>
+							</format>
+							<inputformat>
+								<color>0xFFFFFF</color>
+								<font>_sans</font>
+							</inputformat>
+							<x>510</x>
+							<y>200</y>                    
+							<width>50</width>
+							<prompt>eth</prompt>
+							<editable>true</editable>
+							<selectable>true</selectable>
+							<restrict>0x0123456789ABCDEFabcdef</restrict>
+							<maxchars>3</maxchars>
+				</textinput>
+				<textinput instance="recieverAddress">
+							<format>
+								<color>0xFFFFFF</color>
+								<font>_sans</font>
+							</format>
+							<inputformat>
+								<color>0xFFFFFF</color>
+								<font>_sans</font>
+							</inputformat>
+							<x>0</x>
+							<y>200</y>                    
+							<width>500</width>
+							<prompt>Enter Reciever's Address</prompt>
+							<editable>true</editable>
+							<selectable>true</selectable>
+						   <restrict>0x0123456789ABCDEFabcdef</restrict>
+					<maxchars>42</maxchars>
+				</textinput>
+			</widget>
 			<widget class="org.cg.widgets.ConnectivitySelectorWidget" vpadding="20">
 				<pickerlist instance="connectivityTypePicker">
 					<listformat>
@@ -1218,7 +1262,7 @@
 				<image instance="connectedIcon">
 					<src><![CDATA[./assets/icons/ic_import_export_white_36dp.png]]></src>
 					<x>410</x>
-					<y>0</y>
+					<y>-0</y>
 				</image>
 				<image instance="connectionProblemIcon">
 					<src><![CDATA[./assets/icons/ic_report_problem_white_36dp.png]]></src>
@@ -1263,7 +1307,7 @@
 					<text>0</text>	
 				</label>
 			</widget>
-			<widget class="org.cg.widgets.EthereumStatusWidget" vpadding="20">
+			<widget class="org.cg.widgets.EthereumStatusWidget" vpadding="40">
 				<enablemessage>Enable Ethereum</enablemessage>
 				<enablingmessage>(Enabling Ethereum)</enablingmessage>
 				<enabledmessage>Disable Ethereum</enabledmessage>				
@@ -1358,7 +1402,7 @@
 					<x>0</x>
 					<y>140</y>					
 					<label>Start at launch</label>
-				</check>				
+				</check>	
 			</widget>
 			<widget class="org.cg.widgets.EthereumMiningControlWidget" vpadding="20">
 				<label>
