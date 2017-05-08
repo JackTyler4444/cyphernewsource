@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <settings version="2.0a">	
 	<netcliques>
 		<definition id="RTMFP_INET" type="direct" class="p2p3.netcliques.RTMFP">
@@ -1186,11 +1185,43 @@
 					<height>29</height>
 					<label>Save unencrypted password locally</label>
 				</check>
+				<textinput instance="accountLockStatus">
+					<format>
+						<color>0xFFFFFF</color>
+						<font>_sans</font>
+					</format>
+					<inputformat>
+						<color>0xFFFFFF</color>
+						<font>_sans</font>
+					</inputformat>
+					<x>0</x>
+					<y>160</y>
+					<width>300</width>
+					<prompt>Account Locked</prompt>
+					<password>false</password>					
+					<editable>false</editable>
+					<selectable>true</selectable>					
+				</textinput>
 			</widget>
 			<widget class="org.cg.widgets.EtherTransferWidget" vpadding="20">
+				<label>
+					<format>
+						<color>0xFFFFFF</color>
+						<font>_sans</font>
+						<size>14</size>
+					</format>
+					<x>0</x>
+					<y>0</y>
+					<text>Send Ether (Remember to unlock your account!):</text>
+				</label>
+				<button instance="clearButton">                
+					<x>630</x>
+					<y>30</y>
+					<label>Clear</label>    
+				</button>
 				<button instance="sendEtherButton">                
 					<x>570</x>
-					<y>200</y>
+					<y>30</y>
 					<label>Send</label>    
 				</button>
 				<textinput instance="etherTransferAmount">
@@ -1203,13 +1234,13 @@
 								<font>_sans</font>
 							</inputformat>
 							<x>510</x>
-							<y>200</y>                    
+							<y>30</y>                    
 							<width>50</width>
 							<prompt>eth</prompt>
 							<editable>true</editable>
 							<selectable>true</selectable>
-							<restrict>0x0123456789ABCDEFabcdef</restrict>
-							<maxchars>3</maxchars>
+							<restrict>"0-9"</restrict>
+							<maxchars>5</maxchars>
 				</textinput>
 				<textinput instance="recieverAddress">
 							<format>
@@ -1221,7 +1252,7 @@
 								<font>_sans</font>
 							</inputformat>
 							<x>0</x>
-							<y>200</y>                    
+							<y>30</y>                    
 							<width>500</width>
 							<prompt>Enter Reciever's Address</prompt>
 							<editable>true</editable>
@@ -1229,8 +1260,36 @@
 						   <restrict>0x0123456789ABCDEFabcdef</restrict>
 					<maxchars>42</maxchars>
 				</textinput>
+				<textinput instance="transactionOutput">
+					<format>
+						<color>0x000000</color>
+						<font>_sans</font>
+					</format>
+					<inputformat>
+						<color>0xFFFFFF</color>
+						<font>_sans</font>
+					</inputformat>
+					<x>0</x>
+					<y>70</y>
+					<height>50</height>
+					<width>700</width>
+					<icon><![CDATA[./assets/icons/ic_perm_identity_white_24dp.png]]></icon>
+					<prompt>Transaction Hash Return</prompt>
+					<password>false</password>					
+					<editable>false</editable>
+					<selectable>true</selectable>
+					<restrict>0x0123456789ABCDEFabcdef</restrict>
+				</textinput>
 			</widget>
 			<widget class="org.cg.widgets.ConnectivitySelectorWidget" vpadding="20">
+				<label instance="fastMessageProtocolTitle">
+					<format>
+						<color>0xFFFFFF</color>
+					</format>
+					<x>0</x>
+					<y>0</y>
+					<text>Fast Messaging Protocol:</text>	
+				</label>
 				<pickerlist instance="connectivityTypePicker">
 					<listformat>
 						<color>0xFFFFFF</color>
@@ -1243,31 +1302,32 @@
 					<height>49</height>
 					<prompt>---</prompt>
 					<selectedindex>-1</selectedindex>
+					<y>30</y>
 				</pickerlist>
 				<toggleswitch instance="connectToggle">
 					<height>49</height>
 					<x>320</x>
-					<y>0</y>					
+					<y>30</y>					
 				</toggleswitch>
 				<image instance="disconnectedIcon">
 					<src><![CDATA[./assets/icons/ic_remove_circle_white_36dp.png]]></src>
 					<x>410</x>
-					<y>0</y>
+					<y>30</y>
 				</image>
 				<image instance="connectingIcon">
 					<src><![CDATA[./assets/icons/ic_swap_vertical_circle_white_36dp.png]]></src>
 					<x>410</x>
-					<y>0</y>
+					<y>30</y>
 				</image>
 				<image instance="connectedIcon">
 					<src><![CDATA[./assets/icons/ic_import_export_white_36dp.png]]></src>
 					<x>410</x>
-					<y>-0</y>
+					<y>30</y>
 				</image>
 				<image instance="connectionProblemIcon">
 					<src><![CDATA[./assets/icons/ic_report_problem_white_36dp.png]]></src>
 					<x>410</x>
-					<y>0</y>
+					<y>30</y>
 				</image>				
 				<textinput instance="connectedPeerID">
 					<format>
@@ -1279,7 +1339,7 @@
 						<font>_sans</font>
 					</inputformat>
 					<x>0</x>
-					<y>62</y>
+					<y>92</y>
 					<height>49</height>
 					<width>470</width>
 					<icon><![CDATA[./assets/icons/ic_perm_identity_white_24dp.png]]></icon>
@@ -1295,7 +1355,7 @@
 						<color>0xFFFFFF</color>
 					</format>
 					<x>0</x>
-					<y>0</y>
+					<y>30</y>
 					<text>Connected peers:</text>	
 				</label>
 				<label instance="connectedPeerCount">
@@ -1303,7 +1363,7 @@
 						<color>0xFFFFFF</color>
 					</format>
 					<x>130</x>
-					<y>0</y>
+					<y>30</y>
 					<text>0</text>	
 				</label>
 			</widget>

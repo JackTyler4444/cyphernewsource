@@ -41,6 +41,7 @@ package org.cg.widgets
 		public var updateAccountButton:Button;
 		public var savePasswordInConfig:Check;
 		public var accountBalance:Label;
+		public var accountLockStatus:TextInput;
 		private var _passwordStartingLocation:Point;
 		private var _okButtonStartingLocation:Point;
 		private var _savePasswordStartingLocation:Point;		
@@ -887,6 +888,18 @@ package org.cg.widgets
 			this._currentlyEditingAccount = null;
 			this._editing = false;
 			lounge.ethereum.unlockAccount(this.accountPicker.selectedItem.address, this.accountPicker.selectedItem.password);
+			var accountVar:Boolean = true;
+			unlockAccountStatus(accountVar);
+		}
+		
+		public function unlockAccountStatus(accountStatus:Boolean):void {
+			if (accountStatus == true) {
+				this.accountLockStatus.text = "Account Unlocked!";
+			}
+			else {
+				this.accountLockStatus.text = "Account locked!";
+			}
+			
 		}
 		
 		/**

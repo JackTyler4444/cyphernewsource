@@ -147,10 +147,21 @@
 		<defaultgame>
 			<widget class="org.cg.widgets.PlayerInfoBarWidget">
 				<x>150</x>
+				<label instance="action">
+					<format>						
+						<color>0xFFFFFF</color>
+						<size>20</size>
+					</format>
+					<x>0</x>
+					<y>4</y>
+					<text>Action on: </text>
+					<width>100</width>
+					<height>20</height>
+				</label>
 				<baritem>
 					<width>170</width>
 					<image instance="iconImage">
-						<x>0</x>
+						<x>70</x>
 						<y>0</y>
 					</image>
 					<label instance="playerHandle">
@@ -158,7 +169,7 @@
 							<color>0xFFFFFF</color>
 							<size>20</size>
 						</format>
-						<x>70</x>
+						<x>140</x>
 						<y>4</y>
 						<width>160</width>
 						<height>49</height>
@@ -169,8 +180,18 @@
 							<size>14</size>
 							<font>_sans</font>
 						</format>
-						<x>70</x>
+						<x>140</x>
 						<y>34</y>
+						<width>160</width>
+						<height>49</height>
+					</label>
+					<label instance="isTheDealer">
+						<format>						
+							<color>0xFFFFFF</color>
+							<size>20</size>
+						</format>
+						<x>140</x>
+						<y>50</y>
 						<width>160</width>
 						<height>49</height>
 					</label>
