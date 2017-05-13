@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<settings version="2.0a">
+	<defaults>		
+		<!-- Smart contract interaction timeout, in blocks (each block is approximately 12 seconds) -->
+		<smartcontracttimeout>12</smartcontracttimeout>
+		<!-- Default number of times that a deck should be shuffled during a shuffle operation. -->
+		<!-- This opeation is not too processor heavy, but it is done on the main thread so     -->
+		<!-- lower numbers are better. Higher shuffle values ensure better randomization.       -->
+		<shufflecount>15</shufflecount>
+		<gametypes>
+			<gametype name="Fun" units="dollar">
+				<startingbalance></startingbalance> <!-- Default starting player balances, or buy-in, if not specified -->				
+				<currencyformat>$#m3,;.#f2r;</currencyformat>
+				<smallincr>0.10</smallincr>
+				<largeincr>1</largeincr>
+			</gametype>
+			<gametype name="Ether" units="ether">
+				<startingbalance></startingbalance>
+				<!-- value should be floored, never rounded! -->
+				<currencyformat>Ξ#m3,;.#f4f;</currencyformat>
+				<smallincr>0.01</smallincr>
+				<largeincr>0.10</largeincr>
+			</gametype>
+		</gametypes>		
+	</defaults>
+	<gamephases>		
+		<phase name="Pre-Flop">		
+			<dealcards>2</dealcards>	 <!-- per player -->			
+		</phase>
+		<phase name="Flop">			
+			<communitycards>3</communitycards>
+		</phase>
+		<phase name="Turn">
+			<communitycards>1</communitycards>
+		</phase>
+		<phase name="River">
+			<communitycards>1</communitycards>
+		</phase>		
+	</gamephases>
+	<cards>
+		<deck name="default" src="../PokerCardGame/assets/StandardDeck.swf">
+			<!-- facevalue="low;high" -->
+			<card name="Ace of Spades" facevalue="1;14" facetext="ace" color="black" suit="spades" class="Core_AceOfSpades"/>
+			<card name="Two of Spades" facevalue="2" facetext="two" color="black" suit="spades" class="Core_TwoOfSpades"/>
+			<card name="Three of Spades" facevalue="3" facetext="three" color="black" suit="spades" class="Core_ThreeOfSpades"/>
+			<card name="Four of Spades" facevalue="4" facetext="four" color="black" suit="spades" class="Core_FourOfSpades"/>
+			<card name="Five of Spades" facevalue="5" facetext="five" color="black" suit="spades" class="Core_FiveOfSpades"/>
+			<card name="Six of Spades" facevalue="6" facetext="six" color="black" suit="spades" class="Core_SixOfSpades"/>
+			<card name="Seven of Spades" facevalue="7" facetext="seven" color="black" suit="spades" class="Core_SevenOfSpades"/>
+			<card name="Eight of Spades" facevalue="8" facetext="eight" color="black" suit="spades" class="Core_EightOfSpades"/>
+			<card name="Nine of Spades" facevalue="9" facetext="nine" color="black" suit="spades" class="Core_NineOfSpades"/>
+			<card name="Ten of Spades" facevalue="10" facetext="ten" color="black" suit="spades" class="Core_TenOfSpades"/>
+			<card name="Jack of Spades" facevalue="11" facetext="jack" color="black" suit="spades" class="Core_JackOfSpades"/>
+			<card name="Queen of Spades" facevalue="12" facetext="queen" color="black" suit="spades" class="Core_QueenOfSpades"/>
+			<card name="King of Spades" facevalue="13" facetext="king" color="black" suit="spades" class="Core_KingOfSpades"/>
+			<card name="Ace of Hearts" facevalue="1;14" facetext="ace" color="red" suit="hearts" class="Core_AceOfHearts"/>
+			<card name="Two of Hearts" facevalue="2" facetext="two" color="red" suit="hearts" class="Core_TwoOfHearts"/>
+			<card name="Three of Hearts" facevalue="3" facetext="three" color="red" suit="hearts" class="Core_ThreeOfHearts"/>
+			<card name="Four of Hearts" facevalue="4" facetext="four" color="red" suit="hearts" class="Core_FourOfHearts"/>
+			<card name="Five of Hearts" facevalue="5" facetext="five" color="red" suit="hearts" class="Core_FiveOfHearts"/>
+			<card name="Six of Hearts" facevalue="6" facetext="six" color="red" suit="hearts" class="Core_SixOfHearts"/>
+			<card name="Seven of Hearts" facevalue="7" facetext="seven" color="red" suit="hearts" class="Core_SevenOfHearts"/>
+			<card name="Eight of Hearts" facevalue="8" facetext="eight" color="red" suit="hearts" class="Core_EightOfHearts"/>
+			<card name="Nine of Hearts" facevalue="9" facetext="nine" color="red" suit="hearts" class="Core_NineOfHearts"/>
+			<card name="Ten of Hearts" facevalue="10" facetext="ten" color="red" suit="hearts" class="Core_TenOfHearts"/>
+			<card name="Jack of Hearts" facevalue="11" facetext="jack" color="red" suit="hearts" class="Core_JackOfHearts"/>
+			<card name="Queen of Hearts" facevalue="12" facetext="queen" color="red" suit="hearts" class="Core_QueenOfHearts"/>
+			<card name="King of Hearts" facevalue="13" facetext="king" color="red" suit="hearts" class="Core_KingOfHearts"/>
+			<card name="Ace of Diamonds" facevalue="1;14" facetext="ace" color="red" suit="diamonds" class="Core_AceOfDiamonds"/>
+			<card name="Two of Diamonds" facevalue="2" facetext="two" color="red" suit="diamonds" class="Core_TwoOfDiamonds"/>
+			<card name="Three of Diamonds" facevalue="3" facetext="three" color="red" suit="diamonds" class="Core_ThreeOfDiamonds"/>
+			<card name="Four of Diamonds" facevalue="4" facetext="four" color="red" suit="diamonds" class="Core_FourOfDiamonds"/>
+			<card name="Five of Diamonds" facevalue="5" facetext="five" color="red" suit="diamonds" class="Core_FiveOfDiamonds"/>
+			<card name="Six of Diamonds" facevalue="6" facetext="six" color="red" suit="diamonds" class="Core_SixOfDiamonds"/>
+			<card name="Seven of Diamonds" facevalue="7" facetext="seven" color="red" suit="diamonds" class="Core_SevenOfDiamonds"/>
+			<card name="Eight of Diamonds" facevalue="8" facetext="eight" color="red" suit="diamonds" class="Core_EightOfDiamonds"/>
+			<card name="Nine of Diamonds" facevalue="9" facetext="nine" color="red" suit="diamonds" class="Core_NineOfDiamonds"/>
+			<card name="Ten of Diamonds" facevalue="10" facetext="ten" color="red" suit="diamonds" class="Core_TenOfDiamonds"/>
+			<card name="Jack of Diamonds" facevalue="11" facetext="jack" color="red" suit="diamonds" class="Core_JackOfDiamonds"/>
+			<card name="Queen of Diamonds" facevalue="12" facetext="queen" color="red" suit="diamonds" class="Core_QueenOfDiamonds"/>
+			<card name="King of Diamonds" facevalue="13" facetext="king" color="red" suit="diamonds" class="Core_KingOfDiamonds"/>
+			<card name="Ace of Clubs" facevalue="1;14" facetext="ace" color="black" suit="clubs" class="Core_AceOfClubs"/>
+			<card name="Two of Clubs" facevalue="2" facetext="two" color="black" suit="clubs" class="Core_TwoOfClubs"/>
+			<card name="Three of Clubs" facevalue="3" facetext="three" color="black" suit="clubs" class="Core_ThreeOfClubs"/>
+			<card name="Four of Clubs" facevalue="4" facetext="four" color="black" suit="clubs" class="Core_FourOfClubs"/>
+			<card name="Five of Clubs" facevalue="5" facetext="five" color="black" suit="clubs" class="Core_FiveOfClubs"/>
+			<card name="Six of Clubs" facevalue="6" facetext="six" color="black" suit="clubs" class="Core_SixOfClubs"/>
+			<card name="Seven of Clubs" facevalue="7" facetext="seven" color="black" suit="clubs" class="Core_SevenOfClubs"/>
+			<card name="Eight of Clubs" facevalue="8" facetext="eight" color="black" suit="clubs" class="Core_EightOfClubs"/>
+			<card name="Nine of Clubs" facevalue="9" facetext="nine" color="black" suit="clubs" class="Core_NineOfClubs"/>
+			<card name="Ten of Clubs" facevalue="10" facetext="ten" color="black" suit="clubs" class="Core_TenOfClubs"/>
+			<card name="Jack of Clubs" facevalue="11" facetext="jack" color="black" suit="clubs" class="Core_JackOfClubs"/>
+			<card name="Queen of Clubs" facevalue="12" facetext="queen" color="black" suit="clubs" class="Core_QueenOfClubs"/>
+			<card name="King of Clubs" facevalue="13" facetext="king" color="black" suit="clubs" class="Core_KingOfClubs"/>
+		</deck>
+	</cards>
+	<cardbacks>
+		<back name="default" class="Core_CardBackRed" designContainer="design" />
+		<back name="redborder" class="Core_CardBackRed" designContainer="design" />
+		<back name="blueborder" class="Core_CardBackBlue" designContainer="design" />
+	</cardbacks>
+	<hands>
+		<!-- hand name="The display hand name" rank="unique numeric ranking of hand, the larger the more valuable" points="numeric points value per hand, may be the same" groupby="facevalue, facetext, color, or suit" groups="sub-groupby:groupby,groupby,...;sub-groupby:groupby,..." sort="asc, des, no"/ -->
+		<!-- "sort" and "points" attributes are optional and default to "no" and 0, all others required -->
+		<!-- "sort" attribute uses "facevalue" attribute as sort index -->
+		<!-- aces="high" - use faceValueHigh when adding points for aces, otherwise use faceValue -->
+		<!-- "groupby" attribute filter is applied first, then "sort" -->
+		<!-- match can use * for groupby (some examples below) -->		
+		<hand name="Royal Flush" rank="36" points="10" aces="high" groupby="suit" sort="asc" match="facetext:ten,jack,queen,king,ace" />
+		<hand name="Straight Flush" rank="35" points="9" aces="low" groupby="suit" sort="asc" match="facetext:nine,ten,jack,queen,king" />
+		<hand name="Straight Flush" rank="34" points="9" aces="low" groupby="suit" sort="asc" match="facetext:eight,nine,ten,jack,queen" />
+		<hand name="Straight Flush" rank="33" points="9" gaces="low" roupby="suit" sort="asc" match="facetext:seven,eight,nine,ten,jack" />
+		<hand name="Straight Flush" rank="32" points="9" aces="low" groupby="suit" sort="asc" match="facetext:six,seven,eight,nine,ten" />
+		<hand name="Straight Flush" rank="31" points="9" aces="high" groupby="suit" sort="asc" match="facetext:five,six,seven,eight,nine" />
+		<hand name="Straight Flush" rank="30" points="9" aces="low" groupby="suit" sort="asc" match="facetext:four,five,six,seven,eight" />
+		<hand name="Straight Flush" rank="29" points="9" aces="low" groupby="suit" sort="asc" match="facetext:three,four,five,six,seven" />
+		<hand name="Straight Flush" rank="28" points="9" aces="low" groupby="suit" sort="asc" match="facetext:two,three,four,five,six" />
+		<hand name="Straight Flush" rank="27" points="9" aces="low" groupby="suit" sort="asc" match="facetext:ace,two,three,four,five" />		
+		<hand name="Four of a Kind" rank="26" points="8" aces="high" groupby="facevalue" match="facetext:*,*,*,*;facetext:*" />
+		<hand name="Four of a Kind" rank="25" points="8" aces="high" groupby="facevalue" match="facetext:*;facetext:*,*,*,*" />
+		<hand name="Full House" rank="24" points="7" aces="high" groupby="facevalue" match="facetext:*,*,*;facetext:*,*" />
+		<hand name="Full House" rank="23" points="7" aces="high" groupby="facevalue" match="facetext:*,*;facetext:*,*,*" />
+		<hand name="Flush" rank="22" points="6" aces="high" groupby="suit" match="facetext:*,*,*,*,*" />		
+		<hand name="Straight" rank="21" points="5" aces="low" groupby="*" sort="asc" match="facetext:ace,two,three,four,five" />
+		<hand name="Straight" rank="20" points="5" aces="low" groupby="*" sort="asc" match="facetext:two,three,four,five,six" />
+		<hand name="Straight" rank="19" points="5" aces="low" groupby="*" sort="asc" match="facetext:three,four,five,six,seven" />
+		<hand name="Straight" rank="18" points="5" aces="low" groupby="*" sort="asc" match="facetext:four,five,six,seven,eight" />
+		<hand name="Straight" rank="17" points="5" aces="low" groupby="*" sort="asc" match="facetext:five,six,seven,eight,nine" />
+		<hand name="Straight" rank="16" points="5" aces="low" groupby="*" sort="asc" match="facetext:six,seven,eight,nine,ten" />
+		<hand name="Straight" rank="15" points="5" aces="low" groupby="*" sort="asc" match="facetext:seven,eight,nine,ten,jack" />
+		<hand name="Straight" rank="14" points="5" aces="low" groupby="*" sort="asc" match="facetext:eight,nine,ten,jack,queen" />
+		<hand name="Straight" rank="13" points="5" aces="low" groupby="*" sort="asc" match="facetext:nine,ten,jack,queen,king" />
+		<hand name="Straight" rank="12" points="5" aces="high" groupby="*" sort="asc" match="facetext:ten,jack,queen,king,ace" />
+		<hand name="Three of a Kind" rank="11" points="4" aces="high" groupby="facevalue" match="facetext:*,*,*;facetext:*;facetext:*" />
+		<hand name="Three of a Kind" rank="10" points="4" aces="high" groupby="facevalue" match="facetext:*;facetext:*,*,*;facetext:*" />
+		<hand name="Three of a Kind" rank="9" points="4" aces="high" groupby="facevalue" match="facetext:*;facetext:*;facetext:*,*,*" />
+		<hand name="Two Pair" rank="8" points="3" aces="high" groupby="facevalue" match="facetext:*,*;facetext:*,*;facetext:*" />
+		<hand name="Two Pair" rank="7" points="3" aces="high" groupby="facevalue" match="facetext:*,*;facetext:*;facetext:*,*" />
+		<hand name="Two Pair" rank="6" points="3" aces="high" groupby="facevalue" match="facetext:*;facetext:*,*;facetext:*,*" />
+		<hand name="One Pair" rank="5" points="2" aces="high" groupby="facevalue" match="facetext:*,*;facetext:*;facetext:*;facetext:*" />
+		<hand name="One Pair" rank="4" points="2" aces="high" groupby="facevalue" match="facetext:*;facetext:*,*;facetext:*;facetext:*" />
+		<hand name="One Pair" rank="3" points="2" aces="high" groupby="facevalue" match="facetext:*;facetext:*;facetext:*,*;facetext:*" />
+		<hand name="One Pair" rank="2" points="2" aces="high" groupby="facevalue" match="facetext:*;facetext:*;facetext:*;facetext:*,*" />
+		<hand name="High Card" rank="1" points="1" aces="high" groupby="facevalue" match="*" />
+	</hands>
+	<views>
+		<defaultgame>
+			<widget class="org.cg.widgets.PlayerInfoBarWidget">
+				<x>150</x>
+				<label instance="action">
+					<format>						
+						<color>0xFFFFFF</color>
+						<size>20</size>
+					</format>
+					<x>0</x>
+					<y>4</y>
+					<text>Action on: </text>
+					<width>100</width>
+					<height>20</height>
+				</label>
+				<baritem>
+					<width>170</width>
+					<image instance="iconImage">
+						<x>70</x>
+						<y>0</y>
+					</image>
+					<label instance="playerHandle">
+						<format>						
+							<color>0xFFFFFF</color>
+							<size>20</size>
+						</format>
+						<x>140</x>
+						<y>4</y>
+						<width>160</width>
+						<height>49</height>
+					</label>
+					<label instance="playerBalance">
+						<format>						
+							<color>0xFFFFFF</color>
+							<size>14</size>
+							<font>_sans</font>
+						</format>
+						<x>140</x>
+						<y>34</y>
+						<width>160</width>
+						<height>49</height>
+					</label>
+					<textinput instance="isTheDealer">
+						<format>						
+							<color>0xFFFFFF</color>
+							<size>20</size>
+						</format>
+						<x>140</x>
+						<y>50</y>
+						<width>160</width>
+						<height>49</height>
+						<text>test</text>
+					</textinput>
+				</baritem>
+			</widget>
+			<widget class="org.cg.widgets.CardsDisplayWidget">				
+				<publicX>45</publicX>
+				<publicY>200</publicY>
+				<publicScale>0.65</publicScale>
+				<privateX>190</privateX>
+				<privateY>438</privateY>
+				<privateScale>0.7</privateScale>
+			</widget>
+			<leaf position="right" width="300" height="300">
+				<widget class="org.cg.widgets.BettingControlsWidget">
+					<y>350</y>
+					<button instance="increaseBetButton">
+						<!-- <button instance="allInButton"> -->
+						<x>0</x>
+						<y>0</y>
+						<width>0</width>
+						<height>0</height>
+						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/chips_minus_36.png]]></icon> -->
+						<label></label>
+					</button>
+					<button instance="decreaseBetButton">
+						<x>1</x>
+						<y>1</y>
+						<width>0</width>
+						<height>0</height>
+						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/chips_plus_36.png]]></icon> -->
+						<label></label>
+					</button>
+					<button instance="hotBetOneButton">
+						<x>100</x>
+						<y>25</y>
+						<width>50</width>
+						<height>25</height>
+						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/chips_minus_36.png]]></icon> -->
+						<label>Min</label>
+					</button>	
+					<button instance="hotBetTwoButton">
+						<!-- <button instance="hotBetButtonTwo"> -->
+						<x>150</x>
+						<y>25</y>
+						<width>50</width>
+						<height>25</height>
+						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/chips_minus_36.png]]></icon> -->
+						<label>3 BBs</label>
+					</button>
+					<button instance="hotBetThreeButton">
+						<!-- <button instance="hotBetButtonThree"> -->
+						<x>200</x>
+						<y>25</y>
+						<width>50</width>
+						<height>25</height>
+						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/chips_minus_36.png]]></icon> -->
+						<label>Pot</label>
+					</button>
+					<button instance="allInButton">
+						<!-- <button instance="allInButton"> -->
+						<x>250</x>
+						<y>25</y>
+						<width>50</width>
+						<height>25</height>
+						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/chips_minus_36.png]]></icon> -->
+						<label>Max</label>
+					</button>
+					<numericstepper instance="betIncreaseStepper">
+						<format>
+							<color>0xFFFFFF</color>
+						</format>
+						<disabledformat>
+							<color>0xFFFFFF</color>
+						</disabledformat>
+						<minimum>0</minimum>
+						<maximum>9999</maximum>
+						<height>40</height>
+						<value>3</value>
+						<step>1</step>
+						<x>0</x>
+						<y>55</y>
+					</numericstepper>
+					<slider instance="betSlider">
+						<minimum>0</minimum>
+						<maximum>100</maximum>
+						<step>100</step>
+						<value>50</value>
+						<page>10</page>
+						<direction>horizontal</direction>
+						<x>130</x>
+						<y>55</y>
+					</slider>
+					<button instance="foldButton">
+						<x>0</x>
+						<y>100</y>
+						<width>100</width>
+						<height>50</height>
+						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/commit_bet_36.png]]></icon> -->
+						<label>Fold</label>
+					</button>
+					<button instance="checkCallButton">
+						<x>100</x>
+						<y>100</y>
+						<width>100</width>
+						<height>50</height>
+						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/chips_minus_36.png]]></icon> -->
+						<label>Check</label>
+					</button>
+					<button instance="betButton">
+						<x>200</x>
+						<y>100</y>
+						<width>100</width>
+						<height>50</height>
+						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/fold_36.png]]></icon> -->
+						<label>Bet</label>
+					</button>
+					<check instance="foldToAnyBetCheck">	
+						<format>						
+							<font>_sans</font>
+						</format>
+						<x>0</x>
+						<y>150</y>					
+						<label>Fold To Any Bet</label>
+					</check>
+				</widget>
+			</leaf>
+			<leaf position="left" width="300" height="300">
+				<widget class="org.cg.widgets.BettingInfoWidget">
+					<y>350</y>
+					<label>
+						<format>						
+							<color>0xFFFFFF</color>
+							<size>14</size>
+						</format>
+						<text>Bet:</text>
+						<x>10</x>
+						<y>0</y>
+					</label>
+					<textinput instance="selectedBetAmount">
+						<inputformat>						
+							<color>0xFFFFFF</color>
+						</inputformat>
+						<promptformat>
+							<color>0xA0A0A0</color>						
+						</promptformat>
+						<x>10</x>
+						<y>25</y>
+						<width>200</width>
+						<height>49</height>
+						<editable>true</editable>
+						<selectable>true</selectable>
+					</textinput>
+					<label>
+						<format>						
+							<color>0xFFFFFF</color>
+							<size>14</size>
+						</format>
+						<text>Pot:</text>
+						<x>10</x>
+						<y>80</y>
+					</label>
+					<textinput instance="potAmount">
+						<inputformat>						
+							<color>0xFFFFFF</color>
+						</inputformat>
+						<promptformat>
+							<color>0xA0A0A0</color>						
+						</promptformat>
+						<x>10</x>
+						<y>105</y>
+						<width>200</width>
+						<height>49</height>
+						<prompt>0</prompt>
+						<editable>false</editable>
+						<selectable>true</selectable>
+					</textinput>	
+					<label>
+						<format>						
+							<color>0xFFFFFF</color>
+							<size>14</size>
+						</format>
+						<text>Blinds:</text>
+						<x>10</x>
+						<y>160</y>
+					</label>
+					<label instance="blindsAmounts">
+						<format>						
+							<color>0xFFFFFF</color>
+							<bold>true</bold>
+							<size>14</size>
+							<font>_sans</font>
+						</format>
+						<text> / </text>
+						<x>55</x>
+						<y>160</y>
+					</label>
+					<label>
+						<format>						
+							<color>0xFFFFFF</color>
+							<size>14</size>
+						</format>
+						<text>Increase in:</text>
+						<x>10</x>
+						<y>180</y>
+					</label>
+					<label instance="blindsTime">
+						<format>						
+							<color>0xFFFFFF</color>
+							<bold>true</bold>
+							<size>14</size>
+						</format>
+						<text>00:00</text>
+						<x>85</x>
+						<y>180</y>
+					</label>
+				</widget>
+			</leaf>
+			<panel position="right">
+				<widget class="org.cg.widgets.GameStatusWidget">
+					<list instance="statusList">
+						<y>50</y>
+						<width>800</width>
+						<height>490</height>
+						<listitem>
+							<height>150</height>							
+							<label instance="itemHeaderText">
+								<format>
+									<color>0x0A0A0A</color>
+									<bold>true</bold>
+									<font>_sans</font>
+									<size>14</size>
+								</format>
+								<width>760</width>
+								<x>34</x>
+								<y>10</y>
+							</label>
+							<hline>
+								<x>0</x>
+								<y>31</y>
+								<alpha>0.1</alpha>
+								<width>760</width>
+								<thickness>1</thickness>
+								<color>0x000000</color>
+							</hline>
+							<label instance="itemDetailsText">
+								<format>
+									<color>0x0A0A0A</color>
+									<bold>false</bold>
+									<font>_sans</font>
+									<wordwrap>true</wordwrap>
+									<size>12</size>
+								</format>
+								<width>760</width>
+								<height>110</height>
+								<x>34</x>
+								<y>35</y>
+							</label>
+							<!-- type icons -->
+							<image instance="iconTypeSmartContract">
+								<x>5</x>
+								<y>5</y>
+								<src><![CDATA[./PokerCardGame/assets/icons/ic_gavel_black_24dp.png]]></src>
+							</image>
+							<image instance="iconTypeGameEngine">
+								<x>5</x>
+								<y>5</y>
+								<src><![CDATA[./PokerCardGame/assets/icons/internals_24.png]]></src>
+							</image>
+							<image instance="iconTypeClique">
+								<x>5</x>
+								<y>5</y>
+								<src><![CDATA[./PokerCardGame/assets/icons/ic_group_black_24dp.png]]></src>
+							</image>
+							<image instance="iconTypeGeneral">
+								<x>5</x>
+								<y>5</y>
+								<src><![CDATA[./PokerCardGame/assets/icons/ic_notifications_black_24dp.png]]></src>
+							</image>
+							<!-- status icons -->
+							<image instance="iconStatusWaiting">
+								<x>5</x>
+								<y>35</y>
+								<src><![CDATA[./PokerCardGame/assets/icons/clock_24.png]]></src>
+							</image>
+							<image instance="iconStatusDone">
+								<x>5</x>
+								<y>35</y>
+								<src><![CDATA[./PokerCardGame/assets/icons/check_24.png]]></src>
+							</image>
+							<image instance="iconStatusError">
+								<x>5</x>
+								<y>35</y>
+								<src><![CDATA[./PokerCardGame/assets/icons/ic_error_black_24dp.png]]></src>
+							</image>							
+						</listitem>
+					</list>
+					<label>
+						<format>
+							<size>16</size>
+							<font>_sans</font>
+							<color>0xFFFFFF</color>						
+						</format>
+						<x>0</x>
+						<y>560</y>
+						<text>Scroll lock:</text>
+					</label>
+					<toggleswitch instance="scrollLockToggleSwitch">
+						<format>
+							<color>0x000000</color>						
+						</format>					
+						<x>80</x>
+						<y>556</y>					
+					</toggleswitch>
+				</widget>
+			</panel>
+		</defaultgame>	
+	</views>
+</settings>
