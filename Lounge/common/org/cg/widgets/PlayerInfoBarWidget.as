@@ -17,6 +17,7 @@ package org.cg.widgets {
 	import org.cg.StarlingViewManager;
 	import org.cg.Table;
 	import org.cg.DebugView;
+    import feathers.controls.TextInput;
 	
 	public class PlayerInfoBarWidget extends Widget implements IWidget {
 		

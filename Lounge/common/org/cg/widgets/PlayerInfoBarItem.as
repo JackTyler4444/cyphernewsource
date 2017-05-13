@@ -40,6 +40,7 @@ package org.cg.widgets {
 		private var _icon:Image; //player's icon image
 		private var _width:Number = Number.NEGATIVE_INFINITY; //width of the instance
 		
+				
 		/**
 		 * Creates a new instance.
 		 * 
@@ -111,6 +112,7 @@ package org.cg.widgets {
 			this._parentBar.bettingModule.addEventListener(PokerBettingEvent.BET_COMMIT, this.onNewBetCommit);			
 			this._parentBar.bettingModule.addEventListener(PokerBettingEvent.BETTING_PLAYER, this.onNewBettingPlayer);
 			this._parentBar.game.addEventListener(PokerGameStatusEvent.UPDATE_BALANCES, this.onBalanceUpdate);
+			
 		}
 		
 		/**

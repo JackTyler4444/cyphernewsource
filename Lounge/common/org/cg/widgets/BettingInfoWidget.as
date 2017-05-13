@@ -60,6 +60,10 @@ package org.cg.widgets {
 			this._bettingModule.addEventListener(PokerBettingEvent.POT_UPDATE, this.onPotUpdate);
 			this._bettingModule.addEventListener(PokerBettingEvent.BLINDS_TIMER, this.onBlindsTimerTick);
 			this._bettingModule.addEventListener(PokerBettingEvent.BETTING_NEW_BLINDS, this.onBlindsUpdated);
+			
+			//listener for user input for selctedBetAmount
+			selectedBetAmount.addEventListener(Event.CHANGE, this.onSelectedBetAmountChange);
+			
 			currentGame.addEventListener(PokerGameStatusEvent.DESTROY, this.onGameDestroy);
 		}
 		
@@ -72,6 +76,10 @@ package org.cg.widgets {
 			this._bettingModule.removeEventListener(PokerBettingEvent.POT_UPDATE, this.onPotUpdate);
 			this._bettingModule.removeEventListener(PokerBettingEvent.BLINDS_TIMER, this.onBlindsTimerTick);
 			this._bettingModule.removeEventListener(PokerBettingEvent.BETTING_NEW_BLINDS, this.onBlindsUpdated);
+			
+			//listener for user input for selctedBetAmount
+			this.selectedBetAmount.removeEventListener(Event.CHANGE, this.onSelectedBetAmountChange);
+			
 			lounge.games[0].removeEventListener(PokerGameStatusEvent.DESTROY, this.onGameDestroy);
 			this._bettingModule = null;
 			super.destroy();
@@ -94,8 +102,66 @@ package org.cg.widgets {
 		 * 
 		 * @param	eventObj A PokerBettingEvent object.
 		 */
-		private function onBetCommit(eventObj:PokerBettingEvent):void {			
+		private function onBetCommit(eventObj:PokerBettingEvent):void {	
+			
 		}
+		
+			/**
+		 * 
+		 * Changes the betIncreaseStepper with user input
+		 *
+		 */
+		private function onSelectedBetAmountChange(eventObj:Event):void {	
+			
+			if (this._bettingModule._debugSwitch == true) {
+			
+			var matchingWidgets:Vector.<IWidget> = getInstanceByClass("org.cg.widgets.BettingControlsWidget");
+			var bettingControlsWidget:BettingControlsWidget = matchingWidgets[0] as BettingControlsWidget;
+			
+			//bettingControlsWidget.betIncreaseStepper.removeEventListener(Event.CHANGE, bettingControlsWidget.onIncreaseStepperChange);
+			bettingControlsWidget.betIncreaseStepperRemove();
+			//bettingControlsWidget.setMinMax();
+			
+			//this._currencyFormatter.setValue(this.selectedBetAmount.text);
+			
+			//this._currencyFormatter.setValue(eventObj.amount);
+			//var formattedAmount:String = this._currencyFormatter.getString(this._bettingModule.currentSettings.currencyFormat);
+			//this.selectedBetAmount.text = formattedAmount;
+			
+			var userInputValue:Number = Number(this.selectedBetAmount.text);
+			
+			//Number(tempSelBetValue);
+			
+			//this._bettingModule.incrementBet(userInputValue);
+			
+			//try formatting
+			bettingControlsWidget.betIncreaseStepper.value = userInputValue;
+			
+			this._bettingModule.addEventListener(PokerBettingEvent.BET_UPDATE, this.onBetUpdate);
+			//bettingControlsWidget.betIncreaseStepper.addEventListener(Event.CHANGE, bettingControlsWidget.onIncreaseStepperChange);
+			bettingControlsWidget.betIncreaseStepperAdd();
+			
+			//var matchingWidgets:Vector.<IWidget> = getInstanceByClass("org.cg.widgets.EthereumAccountWidget");
+			//var ethAccountWidget:EthereumAccountWidget = matchingWidgets[0] as EthereumAccountWidget;
+			//var accountTemp:Boolean = false; 
+			
+			//ethAccountWidget.unlockAccountStatus(accountTemp);
+			
+			}
+			
+			else {
+				this._bettingModule._debugSwitch = true;
+			}
+		}
+		
+		public function killBetInputBoxListener():void {
+			this.removeEventListener(Event.CHANGE, this.onSelectedBetAmountChange);
+		}
+		
+		public function reviveBetInputBoxListener():void {
+			this.addEventListener(Event.CHANGE, this.onSelectedBetAmountChange);
+		}
+		
 		
 		/**
 		 * Event listener invoked when the main betting module reports that the pot value has been changed, updating the pot

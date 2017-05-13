@@ -185,7 +185,7 @@
 						<width>160</width>
 						<height>49</height>
 					</label>
-					<label instance="isTheDealer">
+					<textinput instance="isTheDealer">
 						<format>						
 							<color>0xFFFFFF</color>
 							<size>20</size>
@@ -194,8 +194,8 @@
 						<y>50</y>
 						<width>160</width>
 						<height>49</height>
-						<text>(D)</text>
-					</label>
+						<text>test</text>
+					</textinput>
 				</baritem>
 			</widget>
 			<widget class="org.cg.widgets.CardsDisplayWidget">				
@@ -209,6 +209,58 @@
 			<leaf position="right" width="300" height="300">
 				<widget class="org.cg.widgets.BettingControlsWidget">
 					<y>350</y>
+					<button instance="increaseBetButton">
+						<!-- <button instance="allInButton"> -->
+						<x>0</x>
+						<y>0</y>
+						<width>0</width>
+						<height>0</height>
+						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/chips_minus_36.png]]></icon> -->
+						<label></label>
+					</button>
+					<button instance="decreaseBetButton">
+						<x>1</x>
+						<y>1</y>
+						<width>0</width>
+						<height>0</height>
+						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/chips_plus_36.png]]></icon> -->
+						<label></label>
+					</button>
+					<button instance="hotBetOneButton">
+						<x>100</x>
+						<y>25</y>
+						<width>50</width>
+						<height>25</height>
+						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/chips_minus_36.png]]></icon> -->
+						<label>Min</label>
+					</button>	
+					<button instance="hotBetTwoButton">
+						<!-- <button instance="hotBetButtonTwo"> -->
+						<x>150</x>
+						<y>25</y>
+						<width>50</width>
+						<height>25</height>
+						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/chips_minus_36.png]]></icon> -->
+						<label>3 BBs</label>
+					</button>
+					<button instance="hotBetThreeButton">
+						<!-- <button instance="hotBetButtonThree"> -->
+						<x>200</x>
+						<y>25</y>
+						<width>50</width>
+						<height>25</height>
+						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/chips_minus_36.png]]></icon> -->
+						<label>Pot</label>
+					</button>
+					<button instance="allInButton">
+						<!-- <button instance="allInButton"> -->
+						<x>250</x>
+						<y>25</y>
+						<width>50</width>
+						<height>25</height>
+						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/chips_minus_36.png]]></icon> -->
+						<label>Max</label>
+					</button>
 					<numericstepper instance="betIncreaseStepper">
 						<format>
 							<color>0xFFFFFF</color>
@@ -216,47 +268,33 @@
 						<disabledformat>
 							<color>0xFFFFFF</color>
 						</disabledformat>
-						<minimum>0.1</minimum>
-						<maximum>10</maximum>
-						<step>0.1</step>
-						<value>0.1</value>
+						<minimum>0</minimum>
+						<maximum>9999</maximum>
 						<height>40</height>
-						<x>50</x>
-						<y>0</y>
-					</numericstepper>
-					<button instance="increaseBetButton">
+						<value>3</value>
+						<step>1</step>
 						<x>0</x>
-						<y>50</y>
-						<width>100</width>
-						<height>50</height>
-						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/chips_plus_36.png]]></icon> -->
-						<label>INCREASE BET</label>
-					</button>
-					<button instance="decreaseBetButton">
-						<x>100</x>
-						<y>50</y>
-						<width>100</width>
-						<height>50</height>
-						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/chips_minus_36.png]]></icon> -->
-						<label>DECREASE BET</label>
-					</button>
-					<button instance="allInButton">
-						<x>200</x>
-						<y>50</y>
-						<width>100</width>
-						<height>50</height>
-						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/chips_minus_36.png]]></icon> -->
-						<label>All-In</label>
-					</button>
-					<button instance="betButton">
+						<y>55</y>
+					</numericstepper>
+					<slider instance="betSlider">
+						<minimum>0</minimum>
+						<maximum>100</maximum>
+						<step>100</step>
+						<value>50</value>
+						<page>10</page>
+						<direction>horizontal</direction>
+						<x>130</x>
+						<y>55</y>
+					</slider>
+					<button instance="foldButton">
 						<x>0</x>
 						<y>100</y>
 						<width>100</width>
 						<height>50</height>
 						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/commit_bet_36.png]]></icon> -->
-						<label>BET</label>
+						<label>Fold</label>
 					</button>
-					<button instance="checkButton">
+					<button instance="checkCallButton">
 						<x>100</x>
 						<y>100</y>
 						<width>100</width>
@@ -264,22 +302,22 @@
 						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/chips_minus_36.png]]></icon> -->
 						<label>Check</label>
 					</button>
-					<button instance="foldButton">
+					<button instance="betButton">
 						<x>200</x>
 						<y>100</y>
 						<width>100</width>
 						<height>50</height>
 						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/fold_36.png]]></icon> -->
-						<label>FOLD</label>
+						<label>Bet</label>
 					</button>
-					<check instance="foldToAnyBet">	
+					<check instance="foldToAnyBetCheck">	
 						<format>						
 							<font>_sans</font>
 						</format>
 						<x>0</x>
 						<y>150</y>					
 						<label>Fold To Any Bet</label>
-						</check>
+					</check>
 				</widget>
 			</leaf>
 			<leaf position="left" width="300" height="300">
@@ -305,8 +343,7 @@
 						<y>25</y>
 						<width>200</width>
 						<height>49</height>
-						<prompt>0</prompt>
-						<editable>false</editable>
+						<editable>true</editable>
 						<selectable>true</selectable>
 					</textinput>
 					<label>

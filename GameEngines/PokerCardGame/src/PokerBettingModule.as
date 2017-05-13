@@ -44,6 +44,7 @@ package  {
 	import p2p3.PeerMessageHandler;
 	import p2p3.events.PeerMessageHandlerEvent;
 	import flash.utils.setTimeout;
+	import org.cg.interfaces.IWidget;
 	
 	dynamic public class PokerBettingModule extends MovieClip implements IPokerBettingModule {
 		
@@ -83,7 +84,10 @@ package  {
 		 * An ordered list of players in their betting order, as established by the dealer.
 		 */
 		private var _players:Vector.<IPokerPlayerInfo> = new Vector.<IPokerPlayerInfo>();
-		private var _transactions:EthereumTransactions; //manages received Ethereum transactions to be used in case of challenges		
+		private var _transactions:EthereumTransactions; //manages received Ethereum transactions to be used in case of challenges
+		
+		private var _debugSwitch:Boolean = true;
+		
 		
 		/**
 		 * Creates a new instance.
@@ -872,6 +876,54 @@ package  {
 			updatePlayerBet(newValue, true);
 			enablePlayerBetting();
 		}		
+		
+		public function hotBetUpdate(hbUpdateValue:Number):void{
+			//sets "Bet:" to hotbets
+			if (hbUpdateValue == 1) {
+				//min
+				var minValue:Number = (this.bigBlind * 1);
+				updatePlayerBet(minValue, true);
+			}
+			else if (hbUpdateValue == 2) {
+				//3bb
+				//_currentPlayerBet = 3;
+				var threeBbs:Number = (this.bigBlind * 3);
+				updatePlayerBet(threeBbs, true);
+				//enablePlayerBetting();
+			}
+			
+			else if (hbUpdateValue == 3) {
+				//pot bet
+				var pot:Number = _communityPot;
+				updatePlayerBet(pot, true);
+				//enablePlayerBetting();	
+			}
+			
+			else {
+				//pot bet
+				var maxiBet:Number = maximumTableBet;
+				updatePlayerBet(maxiBet, true);
+				//enablePlayerBetting();	
+			}
+		}
+		
+		
+		//public function debugSwitch(switcher:Boolean):Number {
+			//_debugSwitch = switcher;
+		//}
+		
+		
+		
+		public function updateBetBox(incrementerValue:Number):void {
+			
+			//this.removeEventListener(PokerBettingEvent.BET_UPDATE, this.onBetUpdate);
+			
+			var incrementerTemp:Number = incrementerValue;
+			//incrementBet(incrementerTemp);
+			updatePlayerBet(incrementerTemp, true);
+			
+			//this.addEventListener(PokerBettingEvent.BET_UPDATE, this.onBetUpdate);
+		}
 		
 		/**
 		 * Notifies the betting module that the local (self) player is folding.

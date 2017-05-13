@@ -892,14 +892,14 @@ package org.cg.widgets
 			unlockAccountStatus(accountVar);
 		}
 		
-		public function unlockAccountStatus(accountStatus:Boolean):void {
+		public function unlockAccountStatus(accountStatus:Boolean):void {			
 			if (accountStatus == true) {
 				this.accountLockStatus.text = "Account Unlocked!";
 			}
 			else {
-				this.accountLockStatus.text = "Account locked!";
-			}
-			
+				this.accountLockStatus.text = "Account might be locked!";
+				
+		}
 		}
 		
 		/**
