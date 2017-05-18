@@ -95,6 +95,7 @@ package org.cg.widgets {
 			this._currencyFormatter.setValue(eventObj.amount);
 			var formattedAmount:String = this._currencyFormatter.getString(this._bettingModule.currentSettings.currencyFormat);
 			this.selectedBetAmount.text = formattedAmount;
+			
 		}
 		
 		/**
@@ -114,41 +115,37 @@ package org.cg.widgets {
 		private function onSelectedBetAmountChange(eventObj:Event):void {	
 			
 			if (this._bettingModule._debugSwitch == true) {
-			
-			var matchingWidgets:Vector.<IWidget> = getInstanceByClass("org.cg.widgets.BettingControlsWidget");
-			var bettingControlsWidget:BettingControlsWidget = matchingWidgets[0] as BettingControlsWidget;
-			
-			//bettingControlsWidget.betIncreaseStepper.removeEventListener(Event.CHANGE, bettingControlsWidget.onIncreaseStepperChange);
-			bettingControlsWidget.betIncreaseStepperRemove();
-			//bettingControlsWidget.setMinMax();
-			
-			//this._currencyFormatter.setValue(this.selectedBetAmount.text);
-			
-			//this._currencyFormatter.setValue(eventObj.amount);
-			//var formattedAmount:String = this._currencyFormatter.getString(this._bettingModule.currentSettings.currencyFormat);
-			//this.selectedBetAmount.text = formattedAmount;
-			
-			var userInputValue:Number = Number(this.selectedBetAmount.text);
-			
-			//Number(tempSelBetValue);
-			
-			//this._bettingModule.incrementBet(userInputValue);
-			
-			//try formatting
-			bettingControlsWidget.betIncreaseStepper.value = userInputValue;
-			
-			this._bettingModule.addEventListener(PokerBettingEvent.BET_UPDATE, this.onBetUpdate);
-			//bettingControlsWidget.betIncreaseStepper.addEventListener(Event.CHANGE, bettingControlsWidget.onIncreaseStepperChange);
-			bettingControlsWidget.betIncreaseStepperAdd();
-			
-			//var matchingWidgets:Vector.<IWidget> = getInstanceByClass("org.cg.widgets.EthereumAccountWidget");
-			//var ethAccountWidget:EthereumAccountWidget = matchingWidgets[0] as EthereumAccountWidget;
-			//var accountTemp:Boolean = false; 
-			
-			//ethAccountWidget.unlockAccountStatus(accountTemp);
-			
+				var matchingWidgets:Vector.<IWidget> = getInstanceByClass("org.cg.widgets.BettingControlsWidget");
+				var bettingControlsWidget:BettingControlsWidget = matchingWidgets[0] as BettingControlsWidget;
+				//bettingControlsWidget.betIncreaseStepper.removeEventListener(Event.CHANGE, bettingControlsWidget.onIncreaseStepperChange);
+				this._bettingModule.removeEventListener(PokerBettingEvent.BET_UPDATE, this.onBetUpdate);
+				bettingControlsWidget.betIncreaseStepperRemove();
+				//bettingControlsWidget.setMinMax();
+				//this._currencyFormatter.setValue(this.selectedBetAmount.text);
+				//this._currencyFormatter.setValue(eventObj.amount);
+				//var formattedAmount:String = this._currencyFormatter.getString(this._bettingModule.currentSettings.currencyFormat);
+				//this.selectedBetAmount.text = formattedAmount;
+				var userInputValue:Number = Number(this.selectedBetAmount.text);
+				//Number(tempSelBetValue);
+				//this._bettingModule.incrementBet(userInputValue);
+				//try formatting
+				bettingControlsWidget.betIncreaseStepper.value = userInputValue;
+				this._bettingModule.addEventListener(PokerBettingEvent.BET_UPDATE, this.onBetUpdate);
+				//bettingControlsWidget.betIncreaseStepper.addEventListener(Event.CHANGE, bettingControlsWidget.onIncreaseStepperChange);
+				bettingControlsWidget.betIncreaseStepperAdd();
+				//var matchingWidgets:Vector.<IWidget> = getInstanceByClass("org.cg.widgets.EthereumAccountWidget");
+				//var ethAccountWidget:EthereumAccountWidget = matchingWidgets[0] as EthereumAccountWidget;
+				//var accountTemp:Boolean = false; 
+				//ethAccountWidget.unlockAccountStatus(accountTemp);
+				
+				var tempSelectedBetAmount:Number = Number(this.selectedBetAmount.text);
+				if (tempSelectedBetAmount > 0) {
+					bettingControlsWidget.betButton.label = "Bet (" + this.selectedBetAmount.text + ")";
+				}
+				else {
+					bettingControlsWidget.betButton.label = "Bet";
+				}
 			}
-			
 			else {
 				this._bettingModule._debugSwitch = true;
 			}

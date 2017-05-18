@@ -41,6 +41,9 @@
 	</netcliques>
 	<!-- Defaults differ depending on the Lounge implementation. -->
 	<defaults>
+		<fastmessagingautostart>
+			<enabled>true</enabled>
+		</fastmessagingautostart>
 		<rtmfpgroup>CypherPoker.Lounge</rtmfpgroup>
 		<!-- Leader status is assumed if no peer responses in leadertimeout seconds -->
 		<leadertimeout>1</leadertimeout>		

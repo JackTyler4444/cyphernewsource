@@ -185,18 +185,19 @@
 						<width>160</width>
 						<height>49</height>
 					</label>
-					<textinput instance="isTheDealer">
-						<format>						
-							<color>0xFFFFFF</color>
-							<size>20</size>
-						</format>
-						<x>140</x>
-						<y>50</y>
-						<width>160</width>
-						<height>49</height>
-						<text>test</text>
-					</textinput>
-				</baritem>
+				</baritem>	
+				<textinput instance="isTheDealer">
+					<inputformat>
+						<color>0xFFFFFF</color>
+						<size>14</size>
+							<font>_sans</font>
+					</inputformat>
+					<x>100</x>
+					<y>70</y>
+					<width>230</width>
+					<height>40</height>
+					<editable>false</editable>
+				</textinput>
 			</widget>
 			<widget class="org.cg.widgets.CardsDisplayWidget">				
 				<publicX>45</publicX>
@@ -241,7 +242,7 @@
 						<width>50</width>
 						<height>25</height>
 						<!-- <icon><![CDATA[./PokerCardGame/assets/icons/chips_minus_36.png]]></icon> -->
-						<label>3 BBs</label>
+						<label>3BB</label>
 					</button>
 					<button instance="hotBetThreeButton">
 						<!-- <button instance="hotBetButtonThree"> -->
@@ -313,10 +314,20 @@
 					<check instance="foldToAnyBetCheck">	
 						<format>						
 							<font>_sans</font>
+							<size>14</size>
 						</format>
 						<x>0</x>
 						<y>150</y>					
 						<label>Fold To Any Bet</label>
+					</check>
+					<check instance="checkCallAnyCheck">	
+						<format>						
+							<font>_sans</font>
+							<size>14</size>
+						</format>
+						<x>160</x>
+						<y>150</y>					
+						<label>Check/Call Any</label>
 					</check>
 				</widget>
 			</leaf>

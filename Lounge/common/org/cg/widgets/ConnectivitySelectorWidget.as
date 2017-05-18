@@ -24,6 +24,8 @@ package org.cg.widgets {
 	import org.cg.GlobalSettings;
 	import org.cg.DebugView;
 	import flash.utils.setTimeout;
+	///
+	import org.cg.GlobalSettings
 	
 	public class ConnectivitySelectorWidget extends PanelWidget implements IPanelWidget {
 		
@@ -52,6 +54,7 @@ package org.cg.widgets {
 		 */
 		override public function initialize():void {
 			DebugView.addText("ConnectivitySelectorWidget.initialize");
+			
 			lounge.addEventListener(LoungeEvent.NEW_CLIQUE, this.onCliqueConnect);
 			lounge.addEventListener(LoungeEvent.CLOSE_CLIQUE, this.onCliqueDisconnect);
 			lounge.addEventListener(LoungeEvent.DISCONNECT_CLIQUE, this.onCliqueConnectProblem);
@@ -90,7 +93,23 @@ package org.cg.widgets {
 			this.connectedIcon.visible = false;
 			this.connectionProblemIcon.visible = false;
 			//this is not a good way to do this...can we update the icon position in the view manager maybe (when loaded)?
-			setTimeout(this.clearPeerIDIcon, 1000);			
+			setTimeout(this.clearPeerIDIcon, 1000);		
+			
+			/// initial defualt setting isenabled to set fast msging to 
+			/// auto run
+			try {
+				DebugView.addText("Looking for Fast Messaging Auto-Start");
+				var fastMessagingEnabled:Boolean = GlobalSettings.toBoolean(GlobalSettings.getSetting("defaults", "fastmessagingautostart").enabled);                
+			} catch (err:*) {        
+				fastMessagingEnabled = false;
+			}
+			//this.toggle.addEventListener(Event.CHANGE, this.onToggleClick);            
+			if (fastMessagingEnabled == true) {
+				DebugView.addText("Fast Messaging Auto-Start is Enabled.");
+				this.connectToggle.isSelected = true;
+				this.onConnectTogglelick(null);
+				//this.connectToggle.invalidate();
+			}   
 		}
 				
 		/**

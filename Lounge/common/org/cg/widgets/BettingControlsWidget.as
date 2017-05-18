@@ -41,6 +41,7 @@ package org.cg.widgets {
 		public var hotBetThreeButton:Button;
 		public var allInButton:Button;
 		public var foldToAnyBetCheck:Check;
+		public var checkCallAnyCheck:Check;
 		protected var _game:PokerCardGame = null; //reference to associated PokerCardGame instance
 		protected var _bettingModule:PokerBettingModule = null; //reference to associated PokerBettingModule instance
 		private var _currentMinimumAmount:Number = Number.NEGATIVE_INFINITY; //minimum bet amount set at last enable event
@@ -69,13 +70,17 @@ package org.cg.widgets {
 		 */
 		override public function initialize():void {
 			DebugView.addText ("BettingControlsWidget.initialize");
+			
 			this._bettingModule.addEventListener(PokerBettingEvent.BETTING_DISABLE, this.disableControls);
 			this._bettingModule.addEventListener(PokerBettingEvent.BETTING_ENABLE, this.enableControls);
 			this._bettingModule.addEventListener(PokerBettingEvent.BET_UPDATE, this.onBetUpdate);
 			this._bettingModule.addEventListener(PokerBettingEvent.BETTING_PLAYER, this.onBettingPlayerUpdate);
 			this._game.addEventListener(PokerGameStatusEvent.DESTROY, this.onGameDestroy);
+			
+			this.betIncreaseStepper.maximum = this._bettingModule.maximumTableBet;
+			//this.betIncreaseStepper.minimum = this._bettingModule.bigBlind;
+						
 			this.betIncreaseStepper.addEventListener(Event.CHANGE, this.onIncreaseStepperChange);
-			//this.betIncreaseStepper.isEnabled = true;
 		}
 		
 		/**
@@ -112,8 +117,9 @@ package org.cg.widgets {
 			this.hotBetThreeButton.removeEventListener(Event.TRIGGERED, this.onHotBetThreeButtonClick);
 			this.allInButton.removeEventListener(Event.TRIGGERED, this.onAllInButtonClick);
 			this.checkCallButton.removeEventListener(Event.TRIGGERED, this.onCheckCallButtonClick);
-			this.foldToAnyBetCheck.removeEventListener(Event.TRIGGERED, this.onFoldToAnyBetClick);
+			//this.foldToAnyBetCheck.removeEventListener(Event.TRIGGERED, this.onFoldToAnyBetClick);
 			this.betIncreaseStepper.removeEventListener(Event.CHANGE, this.onIncreaseStepperChange);
+			//this.checkCallAnyCheck.removeEventListener(Event.TRIGGERED, this.onCheckCallAnyClick);
 			
 			this.betButton.isEnabled = false;
 			this.checkCallButton.isEnabled = false;
@@ -126,8 +132,9 @@ package org.cg.widgets {
 			this.hotBetThreeButton.isEnabled = false;
 			this.allInButton.isEnabled = false;
 			this.hotBetOneButton.isEnabled = false;
-			this.foldToAnyBetCheck.isEnabled = false;
+			//this.foldToAnyBetCheck.isEnabled = false;
 			this.betIncreaseStepper.isEnabled = false;
+			//this.checkCallAnyCheck.isEnabled = false;
 			
 		}
 		
@@ -221,8 +228,30 @@ package org.cg.widgets {
 		}
 		
 		private function onCheckCallButtonClick(eventObj:Event):void {  
+			// if check reduce the bet
+			var tempFacingCheck:Number = this._bettingModule.getFacingBet();
+			
+			if (tempFacingCheck == 0) {
+				var matchingWidgets:Vector.<IWidget> = getInstanceByClass("org.cg.widgets.BettingInfoWidget");
+				var bettingInfoWidget:BettingInfoWidget = matchingWidgets[0] as BettingInfoWidget;
+				
+				//trying to see if this will set the betbox to zero
+				var temper:Number = 0;
+				this._bettingModule.updateBetBox(temper);
+				
+				//var bettingTemp:Number = 0;
+				//betIncreaseStepper.value = bettingTemp;
+			}
+			else { 
+				//must be facing a bet since facing
+				//bet is non zero	
+				//setbetbox to facing bet
+				this._bettingModule.updateBetBox(tempFacingCheck);
+			}
 			this._bettingModule.onBetCommit();
 			this.disableControls(null);	
+			
+			
 		}	
 			/**
 		 * Event listener invoked when the "commit bet" button has been clicked. The bet is committed and broadcast to other players while the 
@@ -243,6 +272,7 @@ package org.cg.widgets {
 			// and folds to any bets.  All betting buttons disappear when check and re-apear 
 			//(if visiable otherwise) when uncheked
 			
+			
 			if (_counter == 1){
 			this.disableControls(null);
 			this.foldToAnyBetCheck.isEnabled = true;
@@ -251,14 +281,25 @@ package org.cg.widgets {
 			
 			} 
 			else {
-				this.enableControlsUncheck(null);
 				_counter = 1;
+				this.enableControlsUncheck(null);
 			}
 		}	
 		
-		//private function onCheckCallAny(eventObj:Event):void {
-			// check calls any bets
-		//}	
+		private function onCheckCallAnyClick(eventObj:Event):void {
+			//when ischecked 
+			//if facing a bet and action on local player fold
+			//
+			//else
+			//disable betting buttons (including folding buttn
+			//and checkbox.  
+			//check and fold to any bet
+			// continue checking
+			
+			//if ischeck = false
+			//restore the buttons
+			//end autonchecking/fold to bet
+		}	
 		
 		/**
 		 * Event listener invoked when the bet amount stepper changes. The amount by which the increase or decrease bet buttons
@@ -290,7 +331,19 @@ package org.cg.widgets {
 			this._bettingModule.addEventListener(PokerBettingEvent.BET_UPDATE, this.onBetUpdate);
 			bettingInfoWidget.reviveBetInputBoxListener();
 			
-			//debugSwitch = true;
+			var tempBetButtonStatus:Number = Number(bettingInfoWidget.selectedBetAmount.text);
+			
+			
+			//this._bettingModule._debugSwitch = false;
+			
+			//() {
+			if (betIncreaseStepper.value > 0) {
+				//this.betButton.label = "Bet (" + tempBetButtonStatus + ")";
+				this.betButton.label = "Bet (" + bettingInfoWidget.selectedBetAmount.text + ")";
+			}
+			else {
+				this.betButton.label = "Bet";
+			}
 		}
 		
 		public function setMinMax():void {
@@ -307,6 +360,13 @@ package org.cg.widgets {
 		 * @param	eventObj A PokerBettingEvent object.
 		 */
 		private function enableControls(eventObj:PokerBettingEvent):void {
+			var tempFacingTest:Number = this._bettingModule.getFacingBet();
+			//
+			if ((foldToAnyBetCheck.isSelected == true) && (tempFacingTest > 0)) {
+				this._bettingModule.onFold();
+			}
+			this.betIncreaseStepper.value = tempFacingTest;
+			
 			this.betButton.addEventListener(Event.TRIGGERED, this.onBetButtonClick);
 			this.foldButton.addEventListener(Event.TRIGGERED, this.onFoldButtonClick);
 			this.increaseBetButton.addEventListener(Event.TRIGGERED, this.onIncreaseBetClick);
@@ -318,6 +378,7 @@ package org.cg.widgets {
 			this.allInButton.addEventListener(Event.TRIGGERED, this.onAllInButtonClick);
 			this.checkCallButton.addEventListener(Event.TRIGGERED, this.onCheckCallButtonClick);
 			this.foldToAnyBetCheck.addEventListener(Event.TRIGGERED, this.onFoldToAnyBetClick);
+			this.checkCallAnyCheck.addEventListener(Event.TRIGGERED, this.onCheckCallAnyClick);
 			//this.betSlider.isEnabled = true;
 			
 			this.hotBetOneButton.isEnabled = true;
@@ -329,8 +390,9 @@ package org.cg.widgets {
 			this.foldButton.isEnabled = true;
 			this.foldToAnyBetCheck.isEnabled = true;
 			this.betIncreaseStepper.isEnabled = true;
-			//this.betIncreaseStepper.maximum = this._bettingModule.maximumTableBet;
+			this.betIncreaseStepper.maximum = this._bettingModule.maximumTableBet;
 			//this.betIncreaseStepper.minimum = this._bettingModule.bigBlind;
+			this.checkCallAnyCheck.isEnabled = true;
 			
 			//enable check button if not facing a bet,
 			//call button if facing a bet with updated label,
@@ -348,6 +410,17 @@ package org.cg.widgets {
 			//}
 			//make sure bet is "facingBet" not new hero betting
 			//input
+			
+			
+			var tempFacing:Number = this._bettingModule.getFacingBet();
+			
+			//if (tempFacing > 1) {
+			if (tempFacing != 0) {
+				this.checkCallButton.label = "Call (" + tempFacing + ")";
+			}
+			else {
+				this.checkCallButton.label = "Check";
+			}
 			
 			this._currentAmount = eventObj.amount;
 			this._currentMinimumAmount = eventObj.minimumAmount;
@@ -368,6 +441,7 @@ package org.cg.widgets {
 			this.allInButton.addEventListener(Event.TRIGGERED, this.onAllInButtonClick);
 			this.checkCallButton.addEventListener(Event.TRIGGERED, this.onCheckCallButtonClick);
 			this.foldToAnyBetCheck.addEventListener(Event.TRIGGERED, this.onFoldToAnyBetClick);
+			this.checkCallAnyCheck.addEventListener(Event.TRIGGERED, this.onCheckCallAnyClick);
 			//this.betSlider.isEnabled = true;
 			
 			this.hotBetOneButton.isEnabled = true;
@@ -379,8 +453,9 @@ package org.cg.widgets {
 			this.foldButton.isEnabled = true;
 			this.foldToAnyBetCheck.isEnabled = true;
 			this.betIncreaseStepper.isEnabled = true;
-			//this.betIncreaseStepper.maximum = this._bettingModule.maximumTableBet;
+			this.betIncreaseStepper.maximum = this._bettingModule.maximumTableBet;
 			//this.betIncreaseStepper.minimum = this._bettingModule.bigBlind;
+			this.checkCallAnyCheck.isEnabled = true;
 		}
 		/**
 		 * Updates the widget's UI with a new bet amount, optionally enabling or disabling buttons depending on the players' available

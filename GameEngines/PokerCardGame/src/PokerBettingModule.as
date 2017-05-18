@@ -86,7 +86,9 @@ package  {
 		private var _players:Vector.<IPokerPlayerInfo> = new Vector.<IPokerPlayerInfo>();
 		private var _transactions:EthereumTransactions; //manages received Ethereum transactions to be used in case of challenges
 		
-		private var _debugSwitch:Boolean = true;
+		//private var _debugSwitch:Boolean = true;
+		private var _facingBet:Number = new Number (0);
+		
 		
 		
 		/**
@@ -911,6 +913,12 @@ package  {
 		//public function debugSwitch(switcher:Boolean):Number {
 			//_debugSwitch = switcher;
 		//}
+		
+		public function getFacingBet():Number {
+			_facingBet = _currentPlayerBet;
+			
+			return (_facingBet);
+		}
 		
 		
 		
@@ -2227,6 +2235,8 @@ package  {
 				_currencyFormat = new CurrencyFormat(largestValue);
 			} else {
 				_currencyFormat.setValue(largestValue);
+				//joda
+				//_facingBet = (largestValue - selfPlayerInfo.lastBet);
 			}
 		}
 		
@@ -2311,9 +2321,14 @@ package  {
 				game.actionsContract.storeBet(game.activeSmartContract.address, betValueWei).defer(deferArray).invoke({from:game.ethereumAccount, gas:1000000}, game.txSigningEnabled);
 				// end smart contract deferred invocation: storeBet			
 			}
+			
+			//*
+			//this._facingBet = 100;
+			
 			updateTableBet();
 			updateTablePot(_currentPlayerBet);
 			broadcastPlayerBetSet(_currentPlayerBet);
+			
 			updatePlayerBet(_currentPlayerBet, false); //ensures that balance information is updated in UI
 			var sourcePeers:Vector.<INetCliqueMember> = new Vector.<INetCliqueMember>();
 			sourcePeers.push(game.clique.localPeerInfo);

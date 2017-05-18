@@ -25,6 +25,8 @@ package org.cg.widgets {
 		private var _bettingModule:PokerBettingModule; //reference to the game's PokerBettingModule instance
 		private var _currentTable:Table; //reference to the game's currently active Table instance
 		private var _barItems:Vector.<PlayerInfoBarItem> = new Vector.<PlayerInfoBarItem>(); //all currently active items appearing in the bar
+		//
+		public var isTheDealer:TextInput;
 
 		/**
 		 * Creates a new instance.
@@ -69,6 +71,8 @@ package org.cg.widgets {
 			this._currentTable = this._currentGame.table;
 			this._currentGame.addEventListener(PokerGameStatusEvent.DEALER_NEW_BETTING_ORDER, this.onBettingOrderEstablished);
 			this._currentGame.addEventListener(PokerGameStatusEvent.DESTROY, this.onGameDestroy);
+			//
+			this._currentGame.addEventListener(PokerGameStatusEvent.START, this.onGameStart);
 		}
 		
 		/**
@@ -85,6 +89,16 @@ package org.cg.widgets {
 			}			
 		}
 		
+		private function onGameStart(eventObj:Object):void {
+			var dealerBool:Boolean = this._bettingModule.dealerIsMe;	
+			
+			if (dealerBool) {
+			this.isTheDealer.text = "You have the dealer button";
+			}
+			else {
+			this.isTheDealer.text = "Opponent has the dealer button";	
+			}
+		}
 		/**
 		 * Event listener invoked when the betting order has been reported to have been established by the main game instance. This
 		 * invokes the 'generateBarItems' method.
@@ -103,6 +117,8 @@ package org.cg.widgets {
 		 */
 		private function onGameDestroy(eventObj:PokerGameStatusEvent):void {
 			this._currentGame.removeEventListener(PokerGameStatusEvent.DESTROY, this.onGameDestroy);
+			this._currentGame.removeEventListener(PokerGameStatusEvent.START, this.onGameStart);
+			
 			for (var count:int = 0; count < this._barItems.length; count++) {
 				 this._barItems[count].destroy();
 			}
