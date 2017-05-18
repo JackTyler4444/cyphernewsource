@@ -197,10 +197,11 @@ package org.cg {
 				var sharedObject:SharedObject = SharedObject.getLocal(_SOName);
 				sharedObject.data.settings = _settingsData;				
 				sharedObject.flush();
+				//return (true);
 			} catch (err:*) {
 				return (false);
 			}
-			return (false);
+			return (true);
 		}		
 		
 		/**

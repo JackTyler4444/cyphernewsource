@@ -15,12 +15,13 @@ package org.cg.widgets {
 	import starling.events.Event;
 	import feathers.controls.Button;
 	import org.cg.DebugView;
+	import org.cg.GlobalSettings
 
 	public class NewWindowWidget extends PanelWidget implements IPanelWidget {
 		
 		//UI rendered by StarlingViewManager:
 		public var openNewWindowButton:Button;
-		
+				
 		/**
 		 * Creates a new instance.
 		 * 
@@ -40,6 +41,55 @@ package org.cg.widgets {
 			DebugView.addText("NewWindowWidget.initialize");
 			this.openNewWindowButton.addEventListener(Event.TRIGGERED, this.onOpenNewWindowClick);
 			super.initialize();
+			/// look for user requested additional windown
+			/// instances
+			try {
+				DebugView.addText("Check for user requested new window instances.");
+				var openNewWindowIsEnabled:XML = GlobalSettings.getSetting("defaults", "opennewwindow");
+				var openNewWindowIsEnabledBool:Boolean = Boolean(openNewWindowIsEnabled);
+				//var enabledchild:XML = openNewWindowIsEnabled.child("enabled")[0];
+			} catch (err:*) {        
+				//break?
+				DebugView.addText("No user requests detected for new windows.");
+			}          
+			if (openNewWindowIsEnabledBool == true) {
+				
+				if (lounge.isChildInstance) {
+					//this is a new window
+				} 
+				
+				else {
+					
+					DebugView.addText("New window requested in default settings. Opening new window.");
+				
+				
+				//var startupenabled:XML = GlobalSettings.getSetting("defaults", "opennewwindow").enabled;
+				//var enabledchild:XML = startupenabled.child("enabled")[0];
+				//enabledchild.replace("*", new XML("false"));
+				
+					//openNewWindowIsEnabled.enabled.replace("*", new XML("false"));
+					//var testheck:Boolean = GlobalSettings.saveSettings();
+				
+				//DebugView.addText("Settings saved : " + testheck);
+				
+				//startupenabled.replace("*", "false");
+				//GlobalSettings.saveSettings();
+				
+					//DebugView.addText("Updated Settings: " + openNewWindowIsEnabled.enabled);
+				
+					onOpenNewWindowClick(null);
+				
+				//openNewWindowIsEnabled.enabled.replace("*", new XML("true"));
+				//GlobalSettings.saveSettings();
+				
+				//enabledchild.replace("*", new XML("true"));
+				//GlobalSettings.saveSettings();
+				
+				//DebugView.addText("Updated Settings 2: " + openNewWindowIsEnabled.enabled);
+				}
+				
+				
+			}   
 		}
 		
 		/**
@@ -49,7 +99,16 @@ package org.cg.widgets {
 		 * @param	eventObj An Event object.
 		 */
 		private function onOpenNewWindowClick(eventObj:Event):void {
+			
+			//var startupenabledtest:XML = GlobalSettings.getSetting("defaults", "opennewwindow").enabled;
+				
+			//startupenabledtest.replace("*", "false");
+			//GlobalSettings.saveSettings();
+				
 			lounge.launchNewLounge();
+			
+			//startupenabledtest.replace("*", "true");
+			//GlobalSettings.saveSettings();
 		}		
 	}
 }

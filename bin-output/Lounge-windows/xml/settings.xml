@@ -41,6 +41,15 @@
 	</netcliques>
 	<!-- Defaults differ depending on the Lounge implementation. -->
 	<defaults>
+		<!-- auto creates a table when enabled-->
+		<createtable>
+			<enable>true</enable>
+		</createtable>
+		<!-- Starts another window, will add support for multiple windows eventually -->
+		<opennewwindow>
+			<enabled>true</enabled>
+		</opennewwindow>
+		<!-- Auto Enables Fast Messaging if true -->
 		<fastmessagingautostart>
 			<enabled>true</enabled>
 		</fastmessagingautostart>

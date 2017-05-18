@@ -44,6 +44,10 @@ package org.cg.widgets {
 	import feathers.controls.ToggleButton;
 	import feathers.controls.ImageLoader;
 	import org.cg.DebugView;
+	///
+	import org.cg.events.LoungeEvent;
+	import p2p3.events.NetCliqueEvent;
+	import flash.utils.setTimeout;
 		
 	public class TableManagerWidget extends Widget implements IWidget {
 		
@@ -193,6 +197,8 @@ package org.cg.widgets {
 			this._gameTypeRadioGroup = new ToggleGroup();
 			this.create_contractGameRadio.toggleGroup = this._gameTypeRadioGroup;
 			this.create_funGameRadio.toggleGroup = this._gameTypeRadioGroup;
+			///
+			this._gameTypeRadioGroup.selectedItem = this.create_funGameRadio;
 			this.create_removeRequiredPlayerButton.isEnabled = false;
 			//this.create_contractAddressInput.isEnabled = false;
 			//this.create_contractAddressInput.visible = false;
@@ -232,6 +238,56 @@ package org.cg.widgets {
 			this.create_denominationPicker.addEventListener(Event.CHANGE, this.onDenominationSelect);
 			this.create_createTableButton.addEventListener(Event.TRIGGERED, this.onCreateTableClick);			
 			this.joinTableButton.addEventListener(Event.TRIGGERED, this.onJoinTableClick);
+			
+			///
+			
+			this.lounge.addEventListener(LoungeEvent.NEW_CLIQUE, this.onCliqueConnect);
+			this.create_buyInAmount.text = "100";
+			this.create_bigBlindAmount.text = "2";
+			this.create_smallBlindAmount.text = "1";
+			
+			
+			
+			
+			
+		}
+		
+		/**
+		 * Listens for p2p connection and clicks create table button
+		 */
+		
+		private function onCliqueConnect(eventObj:LoungeEvent):void {
+			//clique has connected!
+			this.lounge.clique.addEventListener(NetCliqueEvent.PEER_CONNECT, this.onPeersConnect);
+			DebugView.addText("Looking for peers!");
+		}
+			
+		private function onPeersConnect(eventObj:NetCliqueEvent):void {
+			DebugView.addText("A new peer has connected: ");
+				
+			if (lounge.isChildInstance) {
+					//this is a new window
+				} 	
+			else {	
+				try {
+					DebugView.addText("Checking for Auto Create Table");
+					var createTableIsEnabled:XML = GlobalSettings.getSetting("defaults", "createtable");
+					var createTableIsEnabledBool:Boolean = Boolean(createTableIsEnabled);
+					//var enabledchild:XML = openNewWindowIsEnabled.child("enabled")[0];
+				} catch (err:*) {        
+					//break?
+					DebugView.addText("No Auto Create Table Enabled");
+				}
+				
+				DebugView.addText("create table is enabled: " + createTableIsEnabledBool);
+				if (createTableIsEnabledBool == true) {
+					showCreateTable(null);
+					setTimeout(onCreateTableClick, 2000, null);
+					onCreateTableClick(null);
+					
+					//onJoinTableClick(null);
+				}
+			}	
 		}
 		
 		/**
@@ -266,6 +322,9 @@ package org.cg.widgets {
 			tableInfoObj.handContractAddress = eventObj.table.smartContractAddress;
 			tableInfoObj.table = eventObj.table;
 			this.tableList.dataProvider.addItem(tableInfoObj);
+			///
+			this._currentSelectedGameListItemData = tableInfoObj;
+			this.onJoinTableClick(null);
 		}
 		
 		/**
@@ -291,7 +350,11 @@ package org.cg.widgets {
 			tableInfoObj.requiredPlayers = eventObj.table.requiredPeers.join(";");
 			tableInfoObj.handContractAddress = eventObj.table.smartContractAddress;
 			tableInfoObj.table = eventObj.table;
-			this.tableList.dataProvider.addItem(tableInfoObj);			
+			this.tableList.dataProvider.addItem(tableInfoObj);		
+			
+			///
+			this._currentSelectedGameListItemData = tableInfoObj;
+			this.onJoinTableClick(null);
 			tableInfoObj.table.announce();
 			lounge.tableManager.enableTableBeacons();
 		}
