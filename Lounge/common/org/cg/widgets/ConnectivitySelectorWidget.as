@@ -103,7 +103,7 @@ package org.cg.widgets {
 			} catch (err:*) {        
 				fastMessagingEnabled = false;
 			}
-			//this.toggle.addEventListener(Event.CHANGE, this.onToggleClick);            
+			          
 			if (fastMessagingEnabled == true) {
 				DebugView.addText("Fast Messaging Auto-Start is Enabled.");
 				this.connectToggle.isSelected = true;

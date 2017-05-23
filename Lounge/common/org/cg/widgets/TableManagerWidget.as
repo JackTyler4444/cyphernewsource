@@ -243,8 +243,8 @@ package org.cg.widgets {
 			
 			this.lounge.addEventListener(LoungeEvent.NEW_CLIQUE, this.onCliqueConnect);
 			this.create_buyInAmount.text = "100";
-			this.create_bigBlindAmount.text = "2";
-			this.create_smallBlindAmount.text = "1";
+			this.create_bigBlindAmount.text = "4";
+			this.create_smallBlindAmount.text = "2";
 			
 			
 			
@@ -259,7 +259,7 @@ package org.cg.widgets {
 		private function onCliqueConnect(eventObj:LoungeEvent):void {
 			//clique has connected!
 			this.lounge.clique.addEventListener(NetCliqueEvent.PEER_CONNECT, this.onPeersConnect);
-			DebugView.addText("Looking for peers!");
+			DebugView.addText("Clique Connected!");
 		}
 			
 		private function onPeersConnect(eventObj:NetCliqueEvent):void {
@@ -279,11 +279,12 @@ package org.cg.widgets {
 					DebugView.addText("No Auto Create Table Enabled");
 				}
 				
-				DebugView.addText("create table is enabled: " + createTableIsEnabledBool);
+				
 				if (createTableIsEnabledBool == true) {
+					DebugView.addText("create table is enabled: " + createTableIsEnabledBool);
 					showCreateTable(null);
 					setTimeout(onCreateTableClick, 2000, null);
-					onCreateTableClick(null);
+					//onCreateTableClick(null);
 					
 					//onJoinTableClick(null);
 				}

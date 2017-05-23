@@ -93,10 +93,10 @@ package org.cg.widgets {
 			var dealerBool:Boolean = this._bettingModule.dealerIsMe;	
 			
 			if (dealerBool) {
-			this.isTheDealer.text = "You have the dealer button";
+				this.isTheDealer.text = "Opponent has the dealer button";
 			}
 			else {
-			this.isTheDealer.text = "Opponent has the dealer button";	
+				this.isTheDealer.text = "You have the dealer button";	
 			}
 		}
 		/**
